@@ -12,7 +12,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './www',
-    port: 1000,
+    port: 9999,
   },
   module: {
     rules: [
