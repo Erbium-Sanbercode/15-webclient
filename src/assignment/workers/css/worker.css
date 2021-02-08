@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: black;
+}
+
+.container {
+    display: grid;    
+    grid-template-areas: 
+        'sidebar content';
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr;
+    width: 90%;
+    padding: 20px;        
+    background-color: silver;  
+    margin: 0 auto;  
+    min-height: 80vh;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    border: 1px solid black;
+}
+
+.sidebar ul {    
+    padding: 0;
+    margin: 0;
+}
+.sidebar li {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.content {
+    grid-area: content;
+    display: flex;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+
+.form-registrasi input, .form-registrasi textarea {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-registrasi label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.tombol {
+    display: flex;
+    justify-content: space-between;    
+    margin-top: 20px;
+}
+
+.tombol button {
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    background-color: burlywood;
+}
+
+.hidden {
+    display: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 5px 10px;
+}

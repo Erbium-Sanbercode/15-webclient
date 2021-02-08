@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../src/assignment/workers/css/worker.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li id="btn_registrasi" class="active">Registrasi</li>
+                <li id="btn_daftar_pekerja">Daftar Pekerja</li>                
+            </ul>
+        </div>
+        <div class="content">
+            <div class="form-registrasi">
+                <form action="" method="post">
+                    <label for="nama">Nama</label>
+                    <input name="nama" id="nama" type="text">
+
+                    <label for="email">Email</label>
+                    <input name="email" id="email" type="text">
+
+                    <label for="telepon">Telepon</label>
+                    <input name="telepon" id="telepon" type="text">
+
+                    <label for="alamat">Alamat</label>                    
+                    <input name="alamat" id="alamat" type="text">
+
+                    <label for="foto">Foto</label>
+                    <input type="file" id="foto" name="foto">
+
+                    <label for="biografi">Biografi</label>
+                    <textarea name="biografi" id="biografi" cols="30" rows="10"></textarea>
+
+                    <div class="tombol">                        
+                        <button type="reset">Reset</button>
+                        <button id="btn_simpan" type="submit">Simpan</button>
+                    </div>                    
+                </form>
+            </div>
+
+            <div class="table-worker hidden">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Telepon</th>
+                            <th>Alamat</th>
+                            <th>Biografi</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>M. Ilham</td>
+                            <td>ilham76c@gmail.com</td>
+                            <td>08783989</td>
+                            <td>Bangkalan</td>
+                            <td>Ini adalah biografi</td>
+                            <td>892-298.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./worker.js"></script>
+</html>

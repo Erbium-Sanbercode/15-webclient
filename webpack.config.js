@@ -1,9 +1,10 @@
 const path = require('path');
 
-module.exports = {
+module.exports = {  
   entry: {
-    main: './src/main.js',
-    task: './src/assignment/task/main.js',
+    //main: './src/main.js',    
+    //assignment: './src/assignment/main.js',
+    worker: "./src/assignment/workers/main.js"
   },
   output: {
     path: path.resolve(__dirname, 'www'),
