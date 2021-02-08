@@ -1,14 +1,12 @@
 // setup state
 const initialState = [
-    { id: 1, task: 'Belajar Sanbercode', assignmentID: 0, attachment: 'tes.txt', done: false, cancel: false},
-    { id: 2, task: 'AA Sanbercode', assignmentID: 1, attachment: 'IYA.txt', done: false, cancel: false},
-    { id: 3, task: 'BB Sanbercode', assignmentID: 2, attachment: 'tidak.txt', done: false, cancel: false}
+    { id: 1, task: 'Belajar Sanbercode', assignee_id: 1, attachment: 'tes.txt', done: false, cancel: false},
   ];
   
 // reduce function
 function add(state, action) {
     const output = action.payload.split('-');
-    state.push({ id: action.payload.id, task: output[0], assignmentID: output[1], attachment: output[2], done: false, cancel: false });
+    state.push({ id: action.payload.id, task: output[0], assignee_id: output[1], attachment: output[2], done: false, cancel: false });
     return state;
   }
   
