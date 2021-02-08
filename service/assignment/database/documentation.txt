@@ -1,0 +1,150 @@
+## Menyimpan data worker
+const data = { 
+    nama: 'ilham', 
+    email: 'ilham@mail.com', 
+    telepon: '097848', 
+    alamat: 'bangkalan', 
+    biografi: 'ini biografi'
+}
+
+# Request
+`http://localhost:6000/worker/write?data=JSON.stringfy(data)`
+
+# Response
+yang di kembalikan data dengan id-nya
+{
+    "id": 25,
+    "nama": "ilham",
+    "email": "ilham@mail.com",
+    "telepon": "097848",
+    "alamat": "bangkalan",
+    "biografi": "ini biografi"
+}
+
+
+# Read data worker
+`http://localhost:6000/worker/read`
+
+# Response 
+]
+    {
+        "id": 25,
+        "nama": "ilham",
+        "email": "ilham@mail.com",
+        "telepon": "097848",
+        "alamat": "bangkalan",
+        "biografi": "ini biografi",
+        "foto": null
+    },
+    {
+        "id": 26,
+        "nama": "ilham",
+        "email": "ilham@mail.com",
+        "telepon": "097848",
+        "alamat": "bangkalan",
+        "biografi": "ini biografi",
+        "foto": null
+    }
+]
+
+
+## Menghapus data worker by id
+
+# Request
+http://localhost:6000/worker/delete?id=26
+
+# Response
+reposne -> 1 (jika berhasil)
+        -> 0 (jika gagal/file tidak ditemukan)
+
+
+
+## Mengambil data worker berdasarkan id 
+
+# Request
+http://localhost:6000/worker/id?id=26
+
+# Response
+{
+    "id": 26,
+    "nama": "ilham",
+    "email": "ilham@mail.com",
+    "telepon": "097848",
+    "alamat": "bangkalan",
+    "biografi": "ini biografi",
+    "foto": null
+}
+
+
+
+## Menyimpan data task
+
+# data
+let data = { 
+    job: 'bermain', 
+    attachment: '123-1212.jpg', 
+    done: true, 
+    cancel: false,
+    assignee_id: 15 
+};
+
+# Request
+`http://localhost:6000/task/write?data=JSON.stringfy(data)`
+
+
+
+
+## Read data task 
+
+# Request
+`http://localhost:6000/task/read`
+
+# Response
+[
+    {
+        "id": 1,
+        "job": "bermain",
+        "attachment": "123-1212.jpg",
+        "done": true,
+        "cancel": false,
+        "assignee_id": 15,
+        "added_at": "2021-02-08T11:19:10.000Z"
+    },
+    {
+        "id": 2,
+        "job": "bermain",
+        "attachment": "673-1212.jpg",
+        "done": true,
+        "cancel": false,
+        "assignee_id": 15,
+        "added_at": "2021-02-08T11:19:11.000Z"
+    }
+]
+
+
+## done task
+
+# Request
+id_task = 1
+`http://localhost:6000/task/done?id=${id_task}`
+
+## Response 
+reposne 1 jika berhasil & 0 jika gagal
+
+
+
+## undone task
+
+# Request
+id_task = 1
+`http://localhost:6000/task/undone?id=${id_task}`
+
+## Response 
+reposne 1 jika berhasil & 0 jika gagal
+
+
+## cancel task 
+
+# Request 
+id_task = 1
+`http://localhost:6000/task/cancel?id=${id_task}`
