@@ -4,6 +4,7 @@ const { Writable } = require('stream');
 const Busboy = require('busboy');
 const url = require('url');
 const { Client } = require('minio');
+require('dotenv').config();
 
 /**
  * set MINIO_ROOT_USER=local-minio
@@ -13,8 +14,8 @@ const client = new Client({
     endPoint: '127.0.0.1',
     port: 1111,
     useSSL: false,
-    accessKey: 'minio',
-    secretKey: '12345678',
+    accessKey: process.env.MINIO_ACCESS,
+    secretKey: process.env.MINIO_SECRET,
 });
 
 function randomFileName(mimetype) {
