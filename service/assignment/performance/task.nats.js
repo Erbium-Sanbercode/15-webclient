@@ -19,42 +19,60 @@ function taskDataSubRegister() {
   return;
 }
 function taskDataSubCountAll() {
-  const taskDataSub = sub('taskData.countAll', taskSubHandling);
+  const taskDataSub = sub(
+    'taskData.countAll',
+    async (msg, reply, subject, sid) => {
+      const count = await countAll();
+      pub(reply, count.toString());
+    }
+  );
   return;
 }
 function taskDataSubCountBy() {
-  const taskDataSub = sub('taskData.countBy', taskSubHandling);
+  const taskDataSub = sub(
+    'taskData.countBy',
+    async (msg, reply, subject, sid) => {
+      const count = await countBy(msg);
+      pub(reply, count.toString());
+    }
+  );
   return;
 }
+// function taskDataSubCountAll() {
+//   const taskDataSub = sub('taskData.countAll', taskSubHandling);
+//   return;
+// }
+// function taskDataSubCountBy() {
+//   const taskDataSub = sub('taskData.countBy', taskSubHandling);
+//   return;
+// }
 
 async function taskSubHandling(msg, reply, subject, sid) {
   data = subject.split('.')[0];
   key = subject.split('.').slice(-1)[0];
-  console.log(key);
   if (data == 'taskData') {
     switch (true) {
       case /^register$/gm.test(key):
         await register(msg);
         break;
-      case /^countAll$/gm.test(key):
-        // console.log(await countAll());
-        const count = await countAll();
-        console.log(count.toString());
-        // pub(reply, count.toString());
-        break;
-      case /^countBy$/gm.test(key):
-        const count = await countBy(msg);
-        pub(reply, count.toString());
-        break;
+      // BUG : Is it BUG?
+      // case /^countBy$/gm.test(key):
+      //   const count = await countBy(msg);
+      //   pub(reply, count.toString());
+      //   break;
+      // case /^countAll$/gm.test(key):
+      //   const count = await countAll();
+      //   pub(reply, count.toString());
+      //   break;
       default:
         console.log('Wrong');
     }
-    const getData = await get();
-    console.log(getData);
+    // const getData = await get();
+    // console.log(getData);
   } else if (data == 'taskLog') {
     await add(subject, msg);
-    const logList = await list(subject);
-    console.log(logList);
+    // const logList = await list(subject);
+    // console.log(logList);
   }
 }
 
