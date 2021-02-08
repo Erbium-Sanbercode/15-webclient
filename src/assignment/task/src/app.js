@@ -19,7 +19,6 @@ form.onsubmit = (event) => {
   const taskValue = task.value
   const IDworkerValue = IDworker.value;
   const assignmentValue = assignment.value.split('C:\\fakepath\\');
-  console.log(assignmentValue.length)
   if (!taskValue?.length && !IDworkerValue?.length && assignmentValue.length === 1) {
     return;
   }
