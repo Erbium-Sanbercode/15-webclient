@@ -1,10 +1,7 @@
 const { createServer } = require('http');
 const { stdout } = require('process');
 const url = require('url');
-const { 
-  uploadPhoto,
-  readPhoto,
-  deletePhoto   } = require('./storage-service');
+const { uploadPhoto, readPhoto, deletePhoto } = require('./storage-service');
 
 const server = createServer(async (req, res) => {
   let method = req.method;

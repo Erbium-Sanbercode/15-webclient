@@ -43,13 +43,13 @@ const server = createServer(async (req, res) => {
   switch (true) {
     case /^\/worker\/write/.test(uri.pathname):
       // console.log(req.headers);
-      if (method === 'GET') {       
+      if (method === 'GET') {
         message = await writeWorker(JSON.parse(uri.query["data"]));
         res.setHeader('Content-Type', 'application/json');
       } else {
         message = 'Method tidak tersedia';
       }
-      break;    
+      break;
     case /^\/worker\/read/.test(uri.pathname):
       if (method === 'GET') {
         message = await readWorker();
@@ -74,7 +74,7 @@ const server = createServer(async (req, res) => {
       }
       break;
     case /^\/task\/write/.test(uri.pathname):
-      if (method === 'GET') {        
+      if (method === 'GET') {
         message = await writeTask(JSON.parse(uri.query['data']));
         res.setHeader('Content-Type', 'application/json');
       } else {
