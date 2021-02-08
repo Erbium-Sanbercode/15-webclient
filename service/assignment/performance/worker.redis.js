@@ -13,14 +13,11 @@ const ERROR_WORKER_LOG_NOT_FOUND = 'data log tidak ditemukan';
 /**
  * add new WorkerLog
  * @param {WorkerLog} key WorkerLog Key name of database
- * @param {string} id workerLog id
+ * @param {string} status workerLog status
  * @returns {Promise<WorkerLog>} new worker Log with status
  */
 async function add(key, status) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    workersLog = [];
-  }
+  let workersLog = await list(key);
   const worker = {
     timestamp: Date.now(),
     status: status,
@@ -29,31 +26,10 @@ async function add(key, status) {
   await save(key, workersLog);
   return worker;
 }
-
-/**
- * register new WorkerLog
- * @param {WorkerLog} key WorkerLog Key name of database
- * @param {string} id workerLog id
- * @returns {Promise<WorkerLog>} new worker Log with status
- */
-async function register(key, status) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    workersLog = [];
-  }
-  const worker = {
-    timestamp: Date.now(),
-    status: status,
-  };
-  workersLog.push(worker);
-  await save(key, workersLog);
-  return worker;
-}
-
 /**
  * get list of registered workersLog
- * @param {WorkerLog} key WorkerLog Key name of database
- * @returns {Promise<WorkerLog[]>} list of registered workersLog
+ * @param {TaskLog} key TaskLog Key name of database
+ * @returns {Promise<TaskLog[]>} list of registered workersLog
  */
 async function list(key) {
   let workersLog = await read(key);
@@ -64,29 +40,46 @@ async function list(key) {
 }
 
 /**
- * remove a workerLog by an id
- * @param {WorkerLog} key WorkerLog Key name of database
- * @param {string} id workerLog id
- * @returns {Promise<WorkerLog>} removed workerLog
+ * get number of worker data
+ * @returns {Promise<number>} value of worker data
  */
-async function remove(key, id) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    throw ERROR_WORKER_LOG_NOT_FOUND;
+async function get() {
+  let workersData = await read('worker');
+  if (!workersData) {
+    workersData = 0;
   }
-  const idx = workersLog.findIndex((w) => w.id === id);
-  if (idx === -1) {
-    throw ERROR_WORKER_LOG_NOT_FOUND;
+  return workersData;
+}
+/**
+ * increase a worker
+ * @returns {Promise<number>} increasing worker data
+ */
+async function register() {
+  let worker = await get();
+  worker += 1;
+  await save('worker', worker);
+  return worker;
+}
+/**
+ * decrease a worker
+ * @returns {Promise<number>} decreasing worker data
+ */
+async function remove() {
+  let worker = await get();
+  if (worker < 1) {
+    worker = 0;
+  } else {
+    worker -= 1;
   }
-  const deleted = workersLog.splice(idx, 1);
-  await save(key, workersLog);
-  return deleted;
+  await save('worker', worker);
+  return worker;
 }
 
 module.exports = {
   add,
-  register,
   list,
+  register,
+  get,
   remove,
   ERROR_REGISTER_DATA_INVALID,
   ERROR_WORKER_LOG_NOT_FOUND,

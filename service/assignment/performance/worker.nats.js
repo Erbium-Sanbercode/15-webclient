@@ -1,8 +1,8 @@
 const { sub } = require('../lib/msgbus');
-const { add, register, remove, list } = require('./worker.redis');
+const { add, list, register, remove, get } = require('./worker.redis');
 
-function workerLogSubRegister() {
-  const workerLogSub = sub('workerLog.register', workerSubHandling);
+function workerLogSubAdd() {
+  const workerLogSub = sub('workerLog.add', workerSubHandling);
   return;
 }
 function workerLogSubRemove() {
@@ -14,21 +14,51 @@ function workerLogSubShow() {
   return;
 }
 
+function workerDataSubRegister() {
+  const workerDataSub = sub('workerData.register', workerSubHandling);
+  return;
+}
+function workerDataSubRemove() {
+  const workerDataSub = sub('workerData.remove', workerSubHandling);
+  return;
+}
+function workerDataSubGet() {
+  const workerDataSub = sub('workerData.get', workerSubHandling);
+  return;
+}
+
 async function workerSubHandling(msg, reply, subject, sid) {
+  data = subject.split('.')[0];
   key = subject.split('.').slice(-1)[0];
-  switch (true) {
-    case /^remove$|^register$|^show$/gm.test(key):
-      await add(subject, msg);
-      break;
-    default:
-      console.log('Wrong');
+  console.log(key);
+  if (data == 'workerData') {
+    switch (true) {
+      case /^register$/gm.test(key):
+        await register();
+        break;
+      case /^remove$/gm.test(key):
+        await remove();
+        break;
+      case /^get$/gm.test(key):
+        await get();
+        break;
+      default:
+        console.log('Wrong');
+    }
+    const getData = await get();
+    console.log(getData.toString());
+  } else if (data == 'workerLog') {
+    await add(subject, msg);
+    const logList = await list(subject);
+    console.log(logList);
   }
-  const logList = await list(subject);
-  console.log(logList);
 }
 
 module.exports = {
-  workerLogSubRegister,
+  workerLogSubAdd,
   workerLogSubRemove,
   workerLogSubShow,
+  workerDataSubRegister,
+  workerDataSubRemove,
+  workerDataSubGet,
 };

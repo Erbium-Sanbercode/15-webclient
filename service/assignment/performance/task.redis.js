@@ -1,10 +1,10 @@
 const { read, save } = require('../lib/kv');
 
 const ERROR_REGISTER_DATA_INVALID = 'data registrasi data log tidak lengkap';
-const ERROR_WORKER_LOG_NOT_FOUND = 'data log tidak ditemukan';
+const ERROR_TASK_LOG_NOT_FOUND = 'data log tidak ditemukan';
 
 /**
- * Worker type definition
+ * task type definition
  * @typedef {Object} TaskLog
  * @property {string} key
  * @property {string} status
@@ -13,81 +13,78 @@ const ERROR_WORKER_LOG_NOT_FOUND = 'data log tidak ditemukan';
 /**
  * add new TaskLog
  * @param {TaskLog} key TaskLog Key name of database
- * @param {string} id TaskLog id
- * @returns {Promise<TaskLog>} new worker Log with status
+ * @param {string} status TaskLog status
+ * @returns {Promise<TaskLog>} new task Log with status
  */
 async function add(key, status) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    workersLog = [];
-  }
-  const worker = {
+  let tasksLog = await list(key);
+  const task = {
     timestamp: Date.now(),
     status: status,
   };
-  workersLog.push(worker);
-  await save(key, workersLog);
-  return worker;
+  tasksLog.push(task);
+  await save(key, tasksLog);
+  return task;
 }
-
 /**
- * register new TaskLog
+ * get list of registered tasksLog
  * @param {TaskLog} key TaskLog Key name of database
- * @param {string} id TaskLog id
- * @returns {Promise<TaskLog>} new worker Log with status
- */
-async function register(key, status) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    workersLog = [];
-  }
-  const worker = {
-    timestamp: Date.now(),
-    status: status,
-  };
-  workersLog.push(worker);
-  await save(key, workersLog);
-  return worker;
-}
-
-/**
- * get list of registered workersLog
- * @param {TaskLog} key TaskLog Key name of database
- * @returns {Promise<TaskLog[]>} list of registered workersLog
+ * @returns {Promise<TaskLog[]>} list of registered tasksLog
  */
 async function list(key) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    workersLog = [];
+  let tasksLog = await read(key);
+  if (!tasksLog) {
+    tasksLog = [];
   }
-  return workersLog;
+  return tasksLog;
 }
 
 /**
- * remove a TaskLog by an id
- * @param {TaskLog} key TaskLog Key name of database
- * @param {string} id TaskLog id
- * @returns {Promise<TaskLog>} removed TaskLog
+ * get list of task data
+ * @returns {Promise<[]>} list of task data
  */
-async function remove(key, id) {
-  let workersLog = await read(key);
-  if (!workersLog) {
-    throw ERROR_WORKER_LOG_NOT_FOUND;
+async function get() {
+  let tasksData = await read('task');
+  if (!tasksData) {
+    tasksData = [];
   }
-  const idx = workersLog.findIndex((w) => w.id === id);
-  if (idx === -1) {
-    throw ERROR_WORKER_LOG_NOT_FOUND;
+  return tasksData;
+}
+/**
+ * push a task
+ * @returns {Promise<number>} push new task data
+ */
+async function register(status) {
+  let taskData = await get();
+  const task = {
+    status: status,
+  };
+  taskData.push(task);
+  await save('task', taskData);
+  return task;
+}
+async function countAll() {
+  const taskData = await get();
+  count = taskData.length;
+  return count;
+}
+async function countBy(filter) {
+  const taskData = await get();
+  let count = 0;
+  for (let item = 0; item < taskData.length; item++) {
+    const element = taskData[item];
+    if (element.status == filter) count += 1;
   }
-  const deleted = workersLog.splice(idx, 1);
-  await save(key, workersLog);
-  return deleted;
+  return count;
 }
 
 module.exports = {
   add,
-  register,
   list,
-  remove,
+  register,
+  get,
+  countAll,
+  countBy,
   ERROR_REGISTER_DATA_INVALID,
-  ERROR_WORKER_LOG_NOT_FOUND,
+  ERROR_TASK_LOG_NOT_FOUND,
 };

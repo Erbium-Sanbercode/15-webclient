@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     main: './src/main.js',
     task: './src/assignment/task/main.js',
+    performance: './src/assignment/performance/main.js',
   },
   output: {
     path: path.resolve(__dirname, 'www'),
