@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment</title>
+  </head>
+  <body>
+    <form id="task-form" action="" method="post">
+      <label>Nama Pekerjaan</label>
+      <input class="regis" type="text" id="task" placeholder="Tulis Pekerjaan Baru" /><br>
+      <label>ID Pekerja</label>
+      <input class="regis" type="number" id="id-worker" placeholder="Tulis ID Pekerja" /><br>
+      <label>Attachment File</label>
+      <input class="regis" type="file" id="attachment" name="attachment"><br>
+      <button class="btn-regis" type="submit">Tambah Pekerjaan</button>
+    </form>
+    <hr />
+    <h4>Daftar Pekerjaan</h4>
+    <ol id="task-list"></ol>
+  </body>
+
+  <script type="text/javascript" src="./task.js"></script>
+</html>

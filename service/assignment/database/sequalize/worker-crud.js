@@ -2,6 +2,7 @@
 const { Sequelize } = require('sequelize');
 const path = require('path');
 const { defineTask, defineWorker } = require('./model');
+require('dotenv').config();
 
 let task, worker;
 
@@ -20,12 +21,24 @@ function setupRelationship(orm) {
 }
 
 async function init() {
-  const orm = new Sequelize('tugas13', 'root', '', {
-    host: 'localhost',
-    port: 3306,
-    dialect: 'mariadb',
-    logging: false,
-  });
+  const orm =
+    process.env.DB_ENGINE_TYPE == 'sqlite'
+      ? new Sequelize('', '', '', {
+          storage: path.join(__dirname, '../', process.env.DB_FILE),
+          dialect: process.env.DB_DIALECT,
+          logging: false,
+        })
+      : new Sequelize(
+          process.env.DB_NAME,
+          process.env.DB_USER,
+          process.env.DB_PASS,
+          {
+            host: process.env.DB_HOST,
+            port: process.env.DB_PORT,
+            dialect: process.env.DB_DIALECT,
+            logging: false,
+          }
+        );
 
   await orm.authenticate();
   setupRelationship(orm);
