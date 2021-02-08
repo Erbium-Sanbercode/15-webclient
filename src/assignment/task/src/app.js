@@ -1,5 +1,12 @@
 require("./app.css");
-const { store$, addAction, doneAction, undoneAction, cancelAction, loadAction } = require("./store");
+const { store$ } = require('./store');
+const {
+  addTaskAsync,
+  showTasksAsync,
+  doneTaskAsync,
+  undoneTaskAsync,
+  cancelTaskAsync
+} = require('./task-client');
 
 const task = document.getElementById("task");
 const IDworker = document.getElementById("id-worker");
@@ -12,13 +19,12 @@ form.onsubmit = (event) => {
   const taskValue = task.value
   const IDworkerValue = IDworker.value;
   const assignmentValue = assignment.value.split('C:\\fakepath\\');
-  console.log(assignmentValue.length)
   if (!taskValue?.length && !IDworkerValue?.length && assignmentValue.length === 1) {
     return;
   }
   // dispatch action add
   const payload = taskValue+"-"+IDworkerValue+"-"+assignmentValue[1]
-  store$.dispatch(addAction(payload));
+  store$.dispatch(addTaskAsync(payload));
   task.value = "";
   IDworker.value = "";
   assignment.value = "";
@@ -33,7 +39,7 @@ store$.subscribe(() => {
 const state = store$.getState();
 render(state);
 
-store$.dispatch(loadAction);
+store$.dispatch(showTasksAsync);
 
 function render(state) {
   list.innerHTML = "";
@@ -48,17 +54,17 @@ function render(state) {
     check.onclick = function () {
       if (!state[i].done) {
         // dispatch action done
-        store$.dispatch(doneAction(task.id));
+        store$.dispatch(doneTaskAsync(task.id));
       } else {
         // dispatch action undone
-        store$.dispatch(undoneAction(task.id));
+        store$.dispatch(undoneTaskAsync(task.id));
       }
     };
     
     btn.innerHTML = 'Cancel';
     btn.onclick = function () {
       // dispatch action remove
-      store$.dispatch(cancelAction(task.id));
+      store$.dispatch(cancelTaskAsync(task.id));
     };
     
     li.prepend(check);

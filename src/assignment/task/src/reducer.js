@@ -14,7 +14,6 @@ function add(state, action) {
   
   function done(state, action) {
     const task = state.find((t) => t.id === action.payload);
-    console.log(task)
     task.done = true;
     return state;
   }

@@ -21,7 +21,6 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     if (!response.ok) {
       throw new Error(data.statusText);
     }
-
     return data;
   } catch (err) {
     return Promise.reject(err.message || data);

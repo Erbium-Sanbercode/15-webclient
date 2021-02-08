@@ -1,0 +1,24 @@
+# Upload Foto
+- Request : await uploadPhoto(req, res)
+- Response: 1213-3131-32.jpg
+
+// jika input file name-nya : photo      -> akan dismpan di bucket photo
+                              attachment -> akan dismpan di bucket attachment
+
+uploadPhoto(req, res)
+    .then(response => {    
+        console.log(response);
+    });
+
+# jika upload dari server
+http://localhost:5454/store
+
+
+# Menghapus Foto
+- Reques  : await deletePhoto(bucket, objectName)
+- Response: 'true' jika berhasil & jika gagal 'false'
+
+deletePhoto("attachment", "1213-3131-32.jpg");
+
+// jika delete dari server
+http://localhost:5454/delete?bucket=attachment&name=1612777225079-271.jpeg
