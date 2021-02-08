@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: {
     main: './src/main.js',
-    assignment: './src/assignment/main.js',
+    task: './src/assignment/task/main.js',
   },
   output: {
     path: path.resolve(__dirname, 'www'),
@@ -12,7 +12,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './www',
-    port: 5757,
+    port: 1000,
   },
   module: {
     rules: [
