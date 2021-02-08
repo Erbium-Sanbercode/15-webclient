@@ -11,24 +11,24 @@
     - task.update.success
     - task.update.failed
     - task.show.failed
-# Publisher :
+# Reply of Subscriber : (Publisher)
 1. Worker :
     - total of worker
 1. Task :
     - total of task (with filter -semua, selesai, batal-)
 
 # KV :
-1. key: worker.add.log<br>
-    value: [{timestamp: status}]
-1. key: worker.remove.log<br>
-    value: [{timestamp: status}]
-1. key: worker.show.log (only failed log)<br>
+1. key: worker.register<br>
+    value: [{timestamp, status}]
+1. key: worker.remove<br>
+    value: [{timestamp, status}]
+1. key: worker.show (only failed log)<br>
     value: [{timestamp}]
-1. key: task.add.log<br>
-    value: [{timestamp: status}]
-1. key: task.remove.log<br>
-    value: [{timestamp: status}]
-1. key: task.show.log (only failed log)<br>
+1. key: task.register<br>
+    value: [{timestamp, status}]
+1. key: task.remove<br>
+    value: [{timestamp, status}]
+1. key: task.show (only failed log)<br>
     value: [{timestamp}]
 1. key: tasks<br>
     value: [{job, workerId, status, documentName}]
