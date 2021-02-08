@@ -24,6 +24,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
+    "busboy": "^0.3.1",
+    "mariadb": "^2.5.2",
+    "minio": "^7.0.18",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
@@ -31,6 +34,7 @@
     "pg-hstore": "^2.3.3",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
+    "sequelize": "^6.5.0",
     "typeorm": "^0.2.30"
   }
 }
