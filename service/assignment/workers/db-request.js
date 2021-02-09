@@ -23,8 +23,6 @@ function insertWorker(data) {
   });
 }
 
-//createTask({assignee_id: 3, job: 'ngoding', attachment: 'file.jpg', done: true});
-
 function selectWorker(data) {
   return new Promise((resolve, reject) => {
     const req = http.request(

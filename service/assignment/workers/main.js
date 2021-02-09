@@ -8,7 +8,6 @@ const {
    deletePhoto  
  } = require("../object/storage-service");
 
-
 const  {
    createWorker
 } = require("./worker-service");
