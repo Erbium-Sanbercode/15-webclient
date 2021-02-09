@@ -1,0 +1,1 @@
+require('./service/assignment/main');
